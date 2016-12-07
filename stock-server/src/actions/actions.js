@@ -24,6 +24,7 @@ export function fetchData(state, tickerArray) {
 					to: '2012-01-05', 
 					period: 'd'
 				}).then(result => {
+					console.log(result);
 					dispatch(success());
 					return result;
 				})

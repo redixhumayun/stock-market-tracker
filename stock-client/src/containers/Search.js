@@ -23,7 +23,10 @@ class Search extends Component {
 				onChange={this.handleChange}/>
 				<span className='input-group-btn'>
 					<button className='btn btn-primary' type='submit' 
-					onClick={() => this.props.onClick(this.state.value)}>
+					onClick={() => {
+						this.props.onAddTicker(this.props.currentState, this.state.value)
+						this.state.value = ''
+					}}>
 						Add
 					</button>
 				</span>
@@ -32,16 +35,16 @@ class Search extends Component {
 	}
 }
 
-Search.propTypes = {
-	onClick: React.PropTypes.func.isRequired
-}
-
 const mapStateToProps = (state) => {
-
+	return {
+		currentState: state
+	}
 }
 
 const mapDispatchToProps = (dispatch) => {
-	onAddTicker: () => dispatch()
+	return {
+		onAddTicker: (state, ticker) => {dispatch(addNewTicker(state, ticker))}
+	}
 }
  
-export default Search;
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

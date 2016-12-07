@@ -1,7 +1,9 @@
 export function addNewTicker(state, ticker){
 	return {
+		type: 'ADD_TICKER', 
 		state, 
-		ticker
+		ticker, 
+		meta: {remote: true}
 	}
 }
 
