@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import Chart from './containers/Chart.js';
+import Search from './containers/Search.js';
+import StockList from './containers/StockList.js';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className="App container">
+        <div className='row title'>
+          <div className='col-sm-12 well text-center'>
+            <h2>Stock Market Tracker</h2>
+          </div>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className='row chart-area'>
+          <div className='col-sm-12'>
+            <Chart />
+          </div>
+        </div>
+        <div className='row stock-list'>
+          <div className='col-sm-12'>
+            <StockList />
+          </div>
+        </div>
+        <div className='row search-bar'>
+          <div className='col-sm-12'>
+            <Search />
+          </div>
+        </div>
       </div>
     );
   }

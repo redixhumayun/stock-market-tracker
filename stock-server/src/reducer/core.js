@@ -31,32 +31,13 @@ export function addTickerKeys(state) {
 	}
 }
 
-
-export function requestAPIData(state, tickerArray){
-	return dispatch => {
-		return 	yahooFinance.historical({
-					symbols: tickerArray, 
-					from: '2012-01-01', 
-					to: '2012-01-05', 
-					period: 'd'
-				}, (err, quotes) => {
-					throw new Error('err');
-				}).then(result => {
-					addDataToKeysFunction(state, result, function(return_data){
-						dispatch(success());
-					});
-				})
-			}
-			
-		}
-
-function addDataToKeysFunction(state, data, done){
+export function addDataToState(state, data){
 	let new_state = state;
 	for(let key in data){
 		new_state = state.setIn(['data', key], data[key]);
 		state = state.merge(new_state);
 	}
-	done(state);
+	return state;
 }
 
 

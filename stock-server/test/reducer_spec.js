@@ -4,8 +4,7 @@ import configureStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
 import reducer from '../src/reducer/reducer.js';
-import {requestAPIData} from '../src/reducer/core.js';
-import {success} from '../src/actions/actions.js';
+import {success, fetchData} from '../src/actions/actions.js';
 
 describe('reducers', () => {
 
@@ -76,10 +75,10 @@ describe('reducers', () => {
 
 		const tickerArray = ['AAPL', 'TSLA', 'GOOGL'];
 
-
-		return store.dispatch(requestAPIData(state, tickerArray)).then(() => {
-			const actions = store.getActions();
-			expect(actions[0]).to.equal(success());
+		return store.dispatch(fetchData(state, tickerArray)).then((data) => {
+			const action = {type: 'ADD_DATA_TO_STATE', data: data}
+			const nextState = reducer(state, action);
+			expect(store.getActions().length).to.equal(1);
 		});
 	});
 });
