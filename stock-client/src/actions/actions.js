@@ -7,6 +7,15 @@ export function addNewTicker(state, ticker){
 	}
 }
 
+export function removeTicker(state, ticker) {
+	return {
+		type: 'REMOVE_TICKER', 
+		state, 
+		ticker, 
+		meta: {remote: true}
+	}
+}
+
 export function addKeysAndData(state) {
 	return dispatch => {
 		dispatch(addKeyValuePairs(state));

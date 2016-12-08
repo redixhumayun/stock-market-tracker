@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
-import {addKeysAndData} from '../actions/actions.js';
+import {addKeysAndData, removeTicker} from '../actions/actions.js';
 
 class StockList extends Component {
 	constructor(props){
@@ -14,7 +14,7 @@ class StockList extends Component {
 			<button key={stock} type='button' className='btn btn-primary stock-btn'>
 				{stock}
 				<span className='glyphicon glyphicon-remove' aria-hidden='true'
-				onClick={() => this.props.onClick(stock)}></span>
+				onClick={() => this.props.removeTicker(this.props.currentState,stock)}></span>
 			</button>
 		)
 	}
@@ -36,9 +36,10 @@ class StockList extends Component {
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
+		console.log(nextProps);
 		const immutable_state = nextProps.currentState._root.entries;
 		if(immutable_state[1]){ //this if statement is to check that the data object has been added 
-			if(immutable_state[0][1].size > immutable_state[1][1].size){ //this is to update when new ticker added
+			if(immutable_state[0][1].size > immutable_state[1][1].size || immutable_state[0][1].size < immutable_state[1][1].size){ //this is to update when new ticker added
 				return true;
 			}
 			else if(immutable_state.length >= 2){ //this if statement is fired only when component does not need to update
@@ -62,7 +63,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		fillState: (state) => {dispatch(addKeysAndData(state))}
+		fillState: (state) => {dispatch(addKeysAndData(state))}, 
+		removeTicker: (state, ticker) => {dispatch(removeTicker(state, ticker))}
 	}
 }
 
