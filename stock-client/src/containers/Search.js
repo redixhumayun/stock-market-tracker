@@ -39,7 +39,7 @@ class Search extends Component {
 						onClick={() => {
 							this.inputValidation(this.state.value).then(() => {
 								this.props.onAddTicker(this.props.currentState, this.state.value)
-								this.state.value = ''
+								this.setState({value: ''})
 							}, (err) => {
 								this.setState({invalid: true})
 								console.log(this.state);

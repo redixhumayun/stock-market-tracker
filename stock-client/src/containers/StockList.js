@@ -1,32 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
+import StockListComponent from '../components/StockListComponent.js';
 import {addKeysAndData, removeTicker} from '../actions/actions.js';
 
 class StockList extends Component {
 	constructor(props){
 		super(props);
-		this.renderButton = this.renderButton.bind(this);
-	}
-
-	renderButton(stock){
-		return(
-			<button key={stock} type='button' className='btn btn-primary stock-btn'>
-				{stock}
-				<span className='glyphicon glyphicon-remove' aria-hidden='true'
-				onClick={() => this.props.removeTicker(this.props.currentState,stock)}></span>
-			</button>
-		)
 	}
 
 	render() {
 		if(this.props.stocks){
 			return (
-				<div>
-					{this.props.stocks.map(stock => {
-						return this.renderButton(stock);
-					})}
-				</div>
+				<StockListComponent stocks={this.props.stocks}
+				onRemoveClick={(stock) => this.props.removeTicker(this.props.currentState, stock)}/>
 			)
 		}else{
 			return(
@@ -36,7 +23,6 @@ class StockList extends Component {
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {
-		console.log(nextProps);
 		const immutable_state = nextProps.currentState._root.entries;
 		if(immutable_state[1]){ //this if statement is to check that the data object has been added 
 			if(immutable_state[0][1].size > immutable_state[1][1].size || immutable_state[0][1].size < immutable_state[1][1].size){ //this is to update when new ticker added

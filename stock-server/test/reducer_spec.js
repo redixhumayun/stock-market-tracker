@@ -18,7 +18,7 @@ describe('reducers', () => {
 		}));
 	});
 
-	it('Handles adding a new ticker to the list', () => {
+	it('Handles adding a new ticker to the list and also needs to return the correct data key objects', () => {
 		const initialState = Map(fromJS({
 			tickers: ['AAPL', 'TSLA']
 		}));
@@ -30,7 +30,7 @@ describe('reducers', () => {
 		}));
 	});
 
-	it('Handles removing a ticker from the list', () => {
+	it('Handles removing a ticker from the list and also needs to return the correct data key objects', () => {
 		const initialState = Map(fromJS({
 			tickers: ['AAPL', 'TSLA', 'GOOGL']
 		}));

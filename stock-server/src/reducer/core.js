@@ -21,7 +21,7 @@ export function removeTicker(state, entry) {
 
 export function addTickerKeys(state) {
 	const tickerArray = state.get('tickers');
-	state = state.delete('data');
+	state = state.delete('data'); //resetting the data object because old ticker data needs to be removed
 	let newState = Map();
 	for(let i = 0; i < tickerArray.size; i++){
 		newState = state.setIn(['data', tickerArray.get(i)], Map());
