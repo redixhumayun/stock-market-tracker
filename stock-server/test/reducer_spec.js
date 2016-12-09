@@ -81,6 +81,56 @@ describe('reducers', () => {
 			expect(store.getActions().length).to.equal(1);
 		});
 	});
+
+	it('handles making API requests with a specific data period denoted', () => {
+		const middlewares = [thunk];
+		const mockStore = configureStore(middlewares);
+		const store = mockStore({});
+
+		const state = fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			dataPeriod: 'm',
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map()
+			}
+		});
+
+		const tickerArray = ['AAPL', 'TSLA', 'GOOGL'];
+
+		return store.dispatch(fetchData(state, tickerArray)).then(data => {
+			const action = {type: 'ADD_DATA_TO_STATE', data};
+			const nextState = reducer(state, action);
+			expect(store.getActions().length).to.equal(1);
+		})
+	});
+
+	it('handles making API requests with a specific time period and data period denoted', () => {
+		const middlewares = [thunk];
+		const mockStore = configureStore(middlewares);
+		const store = mockStore({});
+
+		const state = fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			dataPeriod: 'm',
+			from: '2016-01-01', 
+			to: '2016-11-30',
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map()
+			}
+		});
+
+		const tickerArray = ['AAPL', 'TSLA', 'GOOGL'];
+
+		return store.dispatch(fetchData(state, tickerArray)).then(data => {
+			const action = {type: 'ADD_DATA_TO_STATE', data};
+			const nextState = reducer(state, action);
+			expect(store.getActions().length).to.equal(1);
+		})
+	})
 });
 
 

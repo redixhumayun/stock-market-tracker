@@ -14,13 +14,19 @@ export function addDataToState(state, data) {
 	}
 }
 
-export function fetchData(state, tickerArray) {
+export function fetchData(state, tickerArray) { //the state here is a mutable JSON object because it has not hit reducers yet
 	return dispatch => {
+		let period = state.datePeriod;
+		if(!period){
+			period = 'd';
+		}
+		let fromDate = state.from ? state.from : '2016-01-01';
+		let toDate = state.to ? state.to : '2016-03-30';
 		return 	yahooFinance.historical({
 					symbols: tickerArray, 
-					from: '2012-01-01', 
-					to: '2012-01-06', 
-					period: 'd'
+					from: fromDate, 
+					to: toDate, 
+					period: period
 				}).then(result => {
 					dispatch(success());
 					return result;

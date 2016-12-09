@@ -20,7 +20,7 @@ const store = createStoreWithMiddleware(reducer);
 
 socket.on('state', state => {
 	store.dispatch({
-		type: 'SET_TICKERS', 
+		type: 'SET_STATE', 
 		state
 	});
 });

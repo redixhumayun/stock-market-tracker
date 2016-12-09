@@ -17,7 +17,6 @@ class Chart extends Component {
 
 	cleanUpData(data) {
 		const JSON_data = data.toJS();
-		console.log(JSON_data);
 		let result = [];
 
 		const tickers = Object.keys(JSON_data);
@@ -36,7 +35,6 @@ class Chart extends Component {
 			});
 			result.push(rowData);
 		}
-		console.log(result);
 		return result;
 	}
 

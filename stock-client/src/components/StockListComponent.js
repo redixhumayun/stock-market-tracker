@@ -21,9 +21,9 @@ const StockListComponent = (props) => {
 	)
 }
 
-export default StockListComponent;
-
-renderButton.propTypes = {
+StockListComponent.propTypes = {
 	stocks: React.PropTypes.array.isRequired, 
 	onRemoveClick: React.PropTypes.func.isRequired
 }
+
+export default StockListComponent;

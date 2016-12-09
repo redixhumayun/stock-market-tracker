@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {addNewTicker} from '../actions/actions.js';
+import SearchComponent from '../components/SearchComponent.js'
 
 class Search extends Component {
 	constructor(props){
@@ -31,12 +32,8 @@ class Search extends Component {
 	render() {
 		return (
 			<div>
-				<div className='input-group'>
-					<input ref='input' type='text' className='form-control' placeholder='Enter stock ticker' value={this.state.value}
-					onChange={this.handleChange}/>
-					<span className='input-group-btn'>
-						<button className='btn btn-primary' type='submit' 
-						onClick={() => {
+				<SearchComponent onChange={this.handleChange} textValue={this.state.value}
+				onClick={() => {
 							this.inputValidation(this.state.value).then(() => {
 								this.props.onAddTicker(this.props.currentState, this.state.value)
 								this.setState({value: ''})
@@ -44,11 +41,7 @@ class Search extends Component {
 								this.setState({invalid: true})
 								console.log(this.state);
 							})
-						}}>
-							Add
-						</button>
-					</span>
-				</div>
+						}}/>
 				<div>
 					{this.state.invalid ? <p>Invalid entry</p> : null}
 				</div>
