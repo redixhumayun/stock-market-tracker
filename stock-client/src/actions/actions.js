@@ -16,7 +16,7 @@ export function removeTicker(state, ticker) {
 	}
 }
 
-export function addKeysAndData(state) {
+export function addKeysAndData(state) { //This is the function that will add key value pairs and also data corresponding to each
 	return dispatch => {
 		dispatch(addKeyValuePairs(state));
 		dispatch(fetchData(state));

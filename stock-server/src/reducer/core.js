@@ -3,9 +3,10 @@ import yahooFinance from 'yahoo-finance';
 
 import {success} from '../actions/actions.js';
 
-export function setTickers(state = Map(), entries) {
-	const tickers = List(entries);
-	return state.set('tickers', tickers);
+export function setState(state = Map(), newState) {
+	const newStateMap = Map(newState);
+	const tickers = List(newStateMap.get('tickers'));
+	return state.merge(newStateMap.set('tickers', tickers));
 }
 
 export function addTicker(state, entry) {
@@ -39,6 +40,14 @@ export function addDataToState(state, data){
 		state = state.merge(new_state);
 	}
 	return state;
+}
+
+export function fetchingData(state) {
+	return state.set('isFetching', true);
+}
+
+export function fetchedData(state) {
+	return state.set('isFetching', false);
 }
 
 

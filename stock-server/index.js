@@ -5,6 +5,12 @@ export const store = makeStore();
 startServer(store);
 
 store.dispatch({
-	type: 'SET_TICKERS', 
-	tickers: ['AAPL', 'TSLA', 'GOOGL']
+	type: 'SET_STATE', 
+	state: {
+		tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+		from: '2016-01-01', 
+		to: '2016-03-31', 
+		datePeriod: 'm', 
+		isFetching: false
+	}
 });

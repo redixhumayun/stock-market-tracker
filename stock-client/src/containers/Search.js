@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {addNewTicker} from '../actions/actions.js';
 import SearchComponent from '../components/SearchComponent.js'
 
-class Search extends Component {
+export class Search extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
@@ -39,7 +39,6 @@ class Search extends Component {
 								this.setState({value: ''})
 							}, (err) => {
 								this.setState({invalid: true})
-								console.log(this.state);
 							})
 						}}/>
 				<div>

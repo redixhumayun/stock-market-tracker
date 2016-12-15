@@ -10,11 +10,21 @@ describe('store', () => {
 		expect(store.getState()).to.equal(Map());
 
 		store.dispatch({
-			type: 'SET_TICKERS', 
-			tickers: List.of('AAPL', 'TSLA')
+			type: 'SET_STATE', 
+			state: Map({
+				tickers: List.of('AAPL', 'TSLA', 'GOOGL'), 
+				from: '2016-01-01', 
+				to: '2016-03-31', 
+				datePeriod: 'm', 
+				isFetching: false
+			})
 		});
 		expect(store.getState()).to.equal(fromJS({
-			tickers: ['AAPL', 'TSLA']
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'm', 
+			isFetching: false
 		}));
 	});
 })

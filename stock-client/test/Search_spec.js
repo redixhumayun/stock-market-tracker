@@ -1,9 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {renderIntoDocument, scryRenderedDOMComponentsWithClass, scryRenderedDOMComponentsWithTag, Simulate} from 'react-addons-test-utils';
-import Search from '../../stock-client/src/containers/Search.js';
-
 import {expect} from 'chai';
+
+import {Search} from '../../stock-client/src/containers/Search.js';
+import SearchComponent from '../../stock-client/src/components/SearchComponent.js';
 
 describe('Search', () => {
 	it('renders a search bar', () => {
@@ -20,7 +21,7 @@ describe('Search', () => {
 		const clickHandler = (term) => search_term = term;
 
 		const component = renderIntoDocument(
-			<Search onClick={clickHandler}/>
+			<SearchComponent onClick={clickHandler}/>
 		)
 
 		const add_button = scryRenderedDOMComponentsWithTag(component, 'button');
