@@ -1,0 +1,31 @@
+{
+  "name": "stock-market-tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "chai-immutable": "^1.6.0",
+    "chai": "^3.5.0",
+    "immutable": "^3.8.1",
+    "jsdom": "^9.8.3",
+    "react-addons-test-utils": "^15.4.1"
+  },
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  },
+  "scripts": {
+    "start-server": "./stock-server/babel-node index.js",
+    "start-client": "./stock-client/node scripts/start.js",
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/redixhumayun/stock-market-tracker"
+  },
+  "author": "Zaid Humayun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/redixhumayun/stock-market-tracker/issues"
+  },
+  "homepage": "https://github.com/redixhumayun/stock-market-tracker#readme"
+}
