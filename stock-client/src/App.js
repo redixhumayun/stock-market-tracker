@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Chart from './containers/Chart.js';
 import Search from './containers/Search.js';
 import StockList from './containers/StockList.js';
+import TimePeriodChanger from './containers/TimePeriodChanger.js';
 
 class App extends Component {
   render() {
@@ -11,6 +12,11 @@ class App extends Component {
         <div className='row title'>
           <div className='col-sm-12 well text-center'>
             <h2>Stock Market Tracker</h2>
+          </div>
+        </div>
+        <div className='row time-period-changer'>
+          <div className='col-sm-6'>
+            <TimePeriodChanger />
           </div>
         </div>
         <div className='row chart-area'>

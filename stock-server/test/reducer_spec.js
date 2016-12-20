@@ -177,7 +177,37 @@ describe('reducers', () => {
 				GOOGL: Map()
 			}
 		}));
-	})
+	});
+
+	it('handles changing the date period', () => {
+		const initialState = Map(fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'm', 
+			isFetching: false, 
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map()
+			}
+		}));
+		const action = {type: 'CHANGE_DATE_PERIOD', datePeriod: 'd'};
+		const nextState = reducer(initialState, action);
+
+		expect(nextState).to.equal(fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'd', 
+			isFetching: false,
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map()
+			}
+		}))
+	});
 
 	it('handles making API requests for the populated lists', () => {
 		const middlewares = [thunk];
@@ -204,14 +234,14 @@ describe('reducers', () => {
 		});
 	});
 
-	it('handles making API requests with a specific data period denoted', () => {
+	it('handles making API requests with a specific date period denoted', () => {
 		const middlewares = [thunk];
 		const mockStore = configureStore(middlewares);
 		const store = mockStore({});
 
 		const state = fromJS({
 			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
-			dataPeriod: 'm',
+			datePeriod: 'd',
 			isFetching: false,
 			data: {
 				AAPL: Map(), 
@@ -227,64 +257,37 @@ describe('reducers', () => {
 			const nextState = reducer(state, action);
 			store.dispatch(success())
 			expect(store.getActions().length).to.equal(2);
-		})
-	});
-
-	it('handles making API requests with a specific time period and data period denoted', () => {
-		const middlewares = [thunk];
-		const mockStore = configureStore(middlewares);
-		const store = mockStore({});
-
-		const state = fromJS({
-			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
-			dataPeriod: 'm',
-			from: '2016-01-01', 
-			to: '2016-11-30',
-			isFetching: false,
-			data: {
-				AAPL: Map(), 
-				TSLA: Map(), 
-				GOOGL: Map()
-			}
-		});
-
-		const tickerArray = ['AAPL', 'TSLA', 'GOOGL'];
-
-		return store.dispatch(fetchDataMock(state, tickerArray)).then(data => {
-			const action = {type: 'ADD_DATA_TO_STATE', data};
-			const nextState = reducer(state, action);
-			store.dispatch(success());
-			expect(store.getActions().length).to.equal(2);
 		});
 	});
 
-	it('handles errors when the data for a specific stock is not found', () => {
-		const middlewares = [thunk];
-		const mockStore = configureStore(middlewares);
-		const store = mockStore({});
+	// it('handles errors when the data for a specific stock is not found', () => {
+	// 	const middlewares = [thunk];
+	// 	const mockStore = configureStore(middlewares);
+	// 	const store = mockStore({});
 
-		const state = fromJS({
-			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
-			dataPeriod: 'm',
-			from: '2016-01-01', 
-			to: '2016-11-30',
-			isFetching: false,
-			data: {
-				AAPL: Map(), 
-				TSLA: Map(), 
-				GOOGL: Map()
-			}
-		});
+	// 	const state = fromJS({
+	// 		tickers: ['AAPL', 'TSLA', 'GOOGL', 'RNDM'], 
+	// 		datePeriod: 'm',
+	// 		from: '2016-01-01', 
+	// 		to: '2016-11-30',
+	// 		isFetching: false,
+	// 		data: {
+	// 			AAPL: Map(), 
+	// 			TSLA: Map(), 
+	// 			GOOGL: Map(), 
+	// 			RNDM: Map()
+	// 		}
+	// 	});
 
-		const tickerArray = ['AAPL', 'TSLA', 'GOOGL', 'RNDM'];
+	// 	const tickerArray = ['AAPL', 'TSLA', 'GOOGL', 'RNDM'];
 
-		return store.dispatch(fetchDataMock(state, tickerArray)).then(data => {
-			const action = {type: 'ADD_DATA_TO_STATE', data};
-			const nextState = reducer(state, action);
-			store.dispatch(success());
-			expect(store.getActions().length).to.equal(2);
-		});
-	})
+	// 	return store.dispatch(fetchDataMock(state, tickerArray)).then(data => {
+	// 		const action = {type: 'ADD_DATA_TO_STATE', data};
+	// 		const nextState = reducer(state, action);
+	// 		store.dispatch(success());
+	// 		expect(store.getActions().length).to.equal(2);
+	// 	});
+	// });
 });
 
 

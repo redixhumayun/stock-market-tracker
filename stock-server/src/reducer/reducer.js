@@ -1,4 +1,4 @@
-import {setState, addTicker, removeTicker, addTickerKeys, addDataToState, fetchingData, fetchedData} from './core.js';
+import {setState, addTicker, removeTicker, addTickerKeys, addDataToState, fetchingData, fetchedData, changeDatePeriod} from './core.js';
 
 import {Map} from 'immutable';
 
@@ -18,6 +18,9 @@ export default function (state = Map(), action) {
 			return fetchingData(state);
 		case 'FETCH_DATA_SUCCESS':
 			return fetchedData(state);
+		//need to add cases for changing from and to date and then fetching data
+		case 'CHANGE_DATE_PERIOD':
+			return changeDatePeriod(state, action.datePeriod);
 		default: 
 			return state;
 	}

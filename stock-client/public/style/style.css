@@ -9,3 +9,11 @@
 .stock-btn{
 	margin-left: 10px;
 }
+
+.btn-secondary{
+	margin-left: 5px;
+}
+
+.btn-secondary:hover{
+	background-color:#5BC0DE;
+}

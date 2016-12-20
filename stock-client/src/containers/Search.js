@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 
 import {addNewTicker} from '../actions/actions.js';
-import SearchComponent from '../components/SearchComponent.js'
+import SearchComponent from '../components/SearchComponent.js';
 
 export class Search extends Component {
 	constructor(props){

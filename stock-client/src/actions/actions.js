@@ -19,7 +19,21 @@ export function removeTicker(state, ticker) {
 export function addKeysAndData(state) { //This is the function that will add key value pairs and also data corresponding to each
 	return dispatch => {
 		dispatch(addKeyValuePairs(state));
-		dispatch(fetchData(state));
+	}
+}
+
+export function changeDatePeriodAndFetchData(state, datePeriod) {
+	return dispatch => {
+		dispatch(changeDatePeriod(state, datePeriod));
+	}
+}
+
+function changeDatePeriod(state, datePeriod) {
+	return {
+		type: 'CHANGE_DATE_PERIOD', 
+		state, 
+		datePeriod, 
+		meta: {remote: true}
 	}
 }
 
@@ -31,7 +45,7 @@ function addKeyValuePairs(state) {
 	}
 }
 
-function fetchData(state){
+export function fetchData(state){
 	return {
 		type: 'FETCH_AND_ADD_DATA', 
 		state, 

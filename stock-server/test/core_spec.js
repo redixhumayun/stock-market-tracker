@@ -1,7 +1,7 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect, should} from 'chai';
 
-import {setState, addTicker, removeTicker, addTickerKeys, fetchedData, fetchingData} from '../src/reducer/core.js';
+import {setState, addTicker, removeTicker, addTickerKeys, fetchedData, fetchingData, changeDatePeriod, changeToDate} from '../src/reducer/core.js';
 
 describe('application logic', () => {
 	it('Loads some intitial data', () => {
@@ -164,7 +164,37 @@ describe('application logic', () => {
 				GOOGL: Map()
 			}
 		}));
-	})
+	});
+
+	it('changes the datePeriod of the state object', () => {
+		const state = Map(fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'm', 
+			isFetching: false, 
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map()
+			}
+		}));
+		const datePeriodNew = 'd';
+		const nextState = changeDatePeriod(state, datePeriodNew);
+
+		expect(nextState).to.equal(fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'd', 
+			isFetching: false, 
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map()
+			}
+		}))
+	});
 })
 
 

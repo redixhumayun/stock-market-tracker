@@ -10,7 +10,7 @@ store.dispatch({
 		tickers: ['AAPL', 'TSLA', 'GOOGL'], 
 		from: '2016-01-01', 
 		to: '2016-03-31', 
-		datePeriod: 'm', 
+		datePeriod: '3m', 
 		isFetching: false
 	}
 });

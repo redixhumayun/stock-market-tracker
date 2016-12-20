@@ -50,6 +50,9 @@ export function fetchedData(state) {
 	return state.set('isFetching', false);
 }
 
+export function changeDatePeriod(state, datePeriodNew) {
+	return state.set('datePeriod', datePeriodNew);
+}
 
 
 

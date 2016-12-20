@@ -20,15 +20,15 @@ class StockList extends Component {
 
 	shouldComponentUpdate(nextProps, nextState) {
 		const immutable_state = nextProps.currentState._root.entries;
-		if(immutable_state[5]){ //this if statement is to check that the data object has been added 
-			if(immutable_state[0][1].size > immutable_state[5][1].size || immutable_state[0][1].size < immutable_state[5][1].size){ //this is to update when new ticker added
-				return true;
-			}
-			else if(immutable_state.length >= 5){ //this if statement is fired only when component does not need to update
-				return false;
-			}
+		if(this.props.stocks === undefined) { //setting this here so that on every page reload and every new client connection, 
+			//the stock list will render. Because stock list is undefined initially, will also handle initial render. 
+			return true;
 		}
-		return true; //this is for initial update
+		if(immutable_state[0][1].size > immutable_state[5][1].size || immutable_state[0][1].size < immutable_state[5][1].size){ 
+		//this is to update when new ticker added.
+			return true;
+		}
+		return false;
 	}
 
 	componentDidUpdate() {

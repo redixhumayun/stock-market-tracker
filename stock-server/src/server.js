@@ -11,7 +11,7 @@ export function startServer(store){
 
 	io.on('connection', (socket) => {
 		socket.emit('state', store.getState());
-		socket.on('action', (action) => {
+		socket.on('action', (action) => { 
 			if(action.type === 'FETCH_AND_ADD_DATA' && action.tickerArray){
 				helperToFetchAndAdd(store, action.state, action.tickerArray);
 			}else{

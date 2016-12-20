@@ -29,7 +29,7 @@ class Chart extends Component {
 			}
 			tickers.forEach(ticker => {
 				const tickerDayData = JSON_data[ticker][i];
-				rowData[ticker] = (tickerDayData.open + tickerDayData.close) / 2;
+				rowData[ticker] = +(((tickerDayData.open + tickerDayData.close) / 2).toFixed(2));
 				rowData[ticker + '_open'] = tickerDayData.open;
 				rowData[ticker + '_close'] = tickerDayData.close;
 			});

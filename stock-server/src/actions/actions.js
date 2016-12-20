@@ -1,5 +1,8 @@
 import yahooFinance from 'yahoo-finance';
 import _ from 'lodash';
+import moment from 'moment';
+
+import datesGenerator from '../utils/utils.js';
 
 export function success() {
   return {
@@ -26,8 +29,10 @@ export function fetchDataMock(state, tickerArray) {
 	return dispatch => {
 		dispatch(fetching());
 		let period = state.get('datePeriod') ? state.get('datePeriod') : 'm';
-		let fromDate = state.get('from') ? state.get('from') : '2016-01-01';
-		let toDate = state.get('to') ? state.get('to') : '2016-03-30';
+		let fromDate = datesGenerator(period);
+		if(period !== 'd') {period = 'm'};
+		let toDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
+
 		return 	yahooFinance.historical({
 					symbols: tickerArray, 
 					from: fromDate, 
@@ -49,14 +54,17 @@ export function fetchData(state, tickerArray) {
 	return dispatch => {
 		dispatch(fetching());
 		let period = state.datePeriod ? state.datePeriod : 'm';
-		let fromDate = state.from ? state.from : '2016-01-01';
-		let toDate = state.to ? state.to : '2016-03-30';
+		let fromDate = datesGenerator(period);
+		if(period !== 'd') {period = 'm'};
+		let toDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
+
 		return 	yahooFinance.historical({
 					symbols: tickerArray, 
 					from: fromDate, 
 					to: toDate, 
 					period: period
 				}).then(result => {
+					dispatch(success());
 					return result;
 				})
 		}
