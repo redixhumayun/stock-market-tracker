@@ -3,7 +3,7 @@ import React from 'react';
 
 function renderButton(stock, onRemoveClick){
 	return(
-		<button key={stock} type='button' className='btn btn-primary stock-btn'>
+		<button key={stock} type='button' className='btn btn-warning stock-btn'>
 			{stock}
 			<span className='glyphicon glyphicon-remove' aria-hidden='true'
 			onClick={() => onRemoveClick(stock)}></span>
@@ -13,7 +13,7 @@ function renderButton(stock, onRemoveClick){
 
 const StockListComponent = (props) => {
 	return(
-		<div>
+		<div className='stock-list'>
 			{props.stocks.map(stock => {
 				return renderButton(stock, props.onRemoveClick);
 			})}
@@ -22,7 +22,7 @@ const StockListComponent = (props) => {
 }
 
 StockListComponent.propTypes = {
-	stocks: React.PropTypes.array.isRequired, 
+	stocks: React.PropTypes.object.isRequired, 
 	onRemoveClick: React.PropTypes.func.isRequired
 }
 

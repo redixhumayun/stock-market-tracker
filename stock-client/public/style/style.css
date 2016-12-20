@@ -1,19 +1,65 @@
+/*body{
+	background: linear-gradient(to bottom, #4c4c4c 0%,#595959 12%,#666666 25%,#474747 39%,#2c2c2c 50%,#000000 51%,#111111 60%,#2b2b2b 76%,#1c1c1c 91%,#131313 100%);
+}*/
+body {
+	background: black;
+}
+
+.title {
+	color: white;
+}
+
 .input-group{
 	width: 100%;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}
+
+.chart-area {
+	margin-top: 50px;
 }
 
 .glyphicon-remove{
 	margin-left: 10px;
 }
 
+.stock-list {
+	margin-top: 10px;
+}
+
 .stock-btn{
 	margin-left: 10px;
 }
 
+.time-period-changer {
+	margin-top: 20px;
+}
+
+.loading-icon-chart{
+	width: 50%;
+	margin:0 auto;
+}
+ 
+.loading-icon-stocklist {
+	width: 50%;
+	margin: 0 auto;
+}
+
+.stock-btn{
+	width: 200px;
+	height: 100px;
+	margin-top: 10px;
+	background-color: #262626;
+	font-size: 1.5em;
+	font-weight: bold;
+}
+
 .btn-secondary{
+	background-color: white;
 	margin-left: 5px;
 }
 
 .btn-secondary:hover{
+	transition: background-color 0.5s ease;
 	background-color:#5BC0DE;
 }

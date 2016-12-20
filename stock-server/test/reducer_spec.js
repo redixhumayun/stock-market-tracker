@@ -119,6 +119,37 @@ describe('reducers', () => {
 		}));
 	});
 
+	it('removes a key from the data object for an invalid ticker symbol', () => {
+		const initialState = Map(fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'm', 
+			isFetching: false,
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map(), 
+				RNDM: Map()
+			}
+		}));
+		const action = {type: 'REMOVE_KEY_VALUE_PAIR', ticker: 'RNDM'};
+		const nextState = reducer(initialState, action);
+
+		expect(nextState).to.equal(fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'm', 
+			isFetching: false,
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map()
+			}
+		}))
+	})
+
 	it('changes the state of isFetching while fetching data', () => {
 		const initialState = Map(fromJS({
 			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
@@ -260,34 +291,35 @@ describe('reducers', () => {
 		});
 	});
 
-	// it('handles errors when the data for a specific stock is not found', () => {
-	// 	const middlewares = [thunk];
-	// 	const mockStore = configureStore(middlewares);
-	// 	const store = mockStore({});
+	it('handles errors when the data for a specific stock is not found', () => {
+		const middlewares = [thunk];
+		const mockStore = configureStore(middlewares);
+		const store = mockStore({});
 
-	// 	const state = fromJS({
-	// 		tickers: ['AAPL', 'TSLA', 'GOOGL', 'RNDM'], 
-	// 		datePeriod: 'm',
-	// 		from: '2016-01-01', 
-	// 		to: '2016-11-30',
-	// 		isFetching: false,
-	// 		data: {
-	// 			AAPL: Map(), 
-	// 			TSLA: Map(), 
-	// 			GOOGL: Map(), 
-	// 			RNDM: Map()
-	// 		}
-	// 	});
+		const state = fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL', 'RNDM'], 
+			datePeriod: 'm',
+			from: '2016-01-01', 
+			to: '2016-11-30',
+			isFetching: false,
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map(), 
+				RNDM: Map()
+			}
+		});
 
-	// 	const tickerArray = ['AAPL', 'TSLA', 'GOOGL', 'RNDM'];
+		const tickerArray = ['AAPL', 'TSLA', 'GOOGL', 'RNDM'];
 
-	// 	return store.dispatch(fetchDataMock(state, tickerArray)).then(data => {
-	// 		const action = {type: 'ADD_DATA_TO_STATE', data};
-	// 		const nextState = reducer(state, action);
-	// 		store.dispatch(success());
-	// 		expect(store.getActions().length).to.equal(2);
-	// 	});
-	// });
+		return store.dispatch(fetchDataMock(state, tickerArray)).then(data => {
+			const action = {type: 'ADD_DATA_TO_STATE', data};
+			const nextState = reducer(state, action);
+			store.dispatch(success());
+			console.log(store.getActions());
+			expect(store.getActions().length).to.equal(4);
+		});
+	});
 });
 
 

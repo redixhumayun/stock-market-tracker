@@ -1,7 +1,7 @@
 import {List, Map, fromJS} from 'immutable';
 import {expect, should} from 'chai';
 
-import {setState, addTicker, removeTicker, addTickerKeys, fetchedData, fetchingData, changeDatePeriod, changeToDate} from '../src/reducer/core.js';
+import {setState, addTicker, removeTicker, addTickerKeys, removeTickerKey, fetchedData, fetchingData, changeDatePeriod, changeToDate} from '../src/reducer/core.js';
 
 describe('application logic', () => {
 	it('Loads some intitial data', () => {
@@ -93,6 +93,37 @@ describe('application logic', () => {
 			isFetching: false
 		}));
 		const nextState = addTickerKeys(state);
+
+		expect(nextState).to.equal(fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'm', 
+			isFetching: false, 
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map()
+			}
+		}));
+	});
+
+	it('handles removing a single key from data object for an invalid ticker symbol', () => {
+		const state = Map(fromJS({
+			tickers: ['AAPL', 'TSLA', 'GOOGL'], 
+			from: '2016-01-01', 
+			to: '2016-03-31', 
+			datePeriod: 'm', 
+			isFetching: false, 
+			data: {
+				AAPL: Map(), 
+				TSLA: Map(), 
+				GOOGL: Map(), 
+				RNDM: Map()
+			}
+		}));
+		const ticker  = 'RNDM';
+		const nextState = removeTickerKey(state, ticker);
 
 		expect(nextState).to.equal(fromJS({
 			tickers: ['AAPL', 'TSLA', 'GOOGL'], 

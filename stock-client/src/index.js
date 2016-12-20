@@ -19,7 +19,7 @@ const createStoreWithMiddleware = applyMiddleware(remoteActionMiddleware(socket)
 }))(createStore);
 const store = createStoreWithMiddleware(reducer);
 
-socket.on('state', state => { //need to clean up this code
+socket.on('state', state => { //need to clean up this
 	let date_flag = false; //using this flag to check for when date changes and when to fetch data from API again
 	let date = state.datePeriod; 
 
@@ -36,11 +36,11 @@ socket.on('state', state => { //need to clean up this code
 		store.dispatch(fetchData(store.getState()));
 	}
 
-	let firstItem = store.getState().get('data').keySeq().first(); //this will select the first key from the data key 
-
-	//if the data object exists and the AAPL key is null, then the isFetching flag is checked and data needs to be fetched
-	if(store.getState().get('data') && store.getState().getIn(['data', firstItem]).size === 0){
-		if(store.getState().get('isFetching') !== true) {
+	//if the data object has been set, the first key is obtained from that object. 
+	if(store.getState().get('data')){
+		let firstItem = store.getState().get('data').keySeq().first(); //this will select the first key from the data key 
+		//the length of the first key is checked and the isFetching flag is also checked 
+		if(store.getState().getIn(['data', firstItem]).size === 0 && store.getState().get('isFetching') !== true){
 			store.dispatch(fetchData(store.getState()));
 		}
 	}

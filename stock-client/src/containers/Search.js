@@ -20,13 +20,14 @@ export class Search extends Component {
 	}
 
 	inputValidation(value){
+		this.setState({invalid: false});
 		return new Promise((resolve, reject) => {
 			if(value.match(/^[a-zA-Z]+$/)){
 				resolve()
 			}else{
 				reject()
 			}
-		})
+		});
 	}
 
 	render() {
@@ -38,7 +39,7 @@ export class Search extends Component {
 								this.props.onAddTicker(this.props.currentState, this.state.value)
 								this.setState({value: ''})
 							}, (err) => {
-								this.setState({invalid: true})
+								this.setState({invalid: true});
 							})
 						}}/>
 				<div>

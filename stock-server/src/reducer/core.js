@@ -33,6 +33,10 @@ export function addTickerKeys(state) {
 	}
 }
 
+export function removeTickerKey(state, ticker) {
+	return state.deleteIn(['data', ticker]);
+}
+
 export function addDataToState(state, data){
 	let new_state = state;
 	for(let key in data){

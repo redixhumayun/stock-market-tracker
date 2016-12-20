@@ -24,6 +24,21 @@ export function addDataToState(state, data) {
 	}
 }
 
+function removeTicker(state, ticker) {
+	return {
+		type: 'REMOVE_TICKER', 
+		state, 
+		ticker
+	}
+}
+
+function removeTickerKey(state, ticker) {
+	return {
+		type: 'REMOVE_KEY_VALUE_PAIR', 
+		ticker
+	}
+}
+
 //written only for the mock store using immutable object getters and setters
 export function fetchDataMock(state, tickerArray) {
 	return dispatch => {
@@ -41,7 +56,9 @@ export function fetchDataMock(state, tickerArray) {
 				}).then(result => {
 					_.each(result, (quotes, symbol) => {
 						if(quotes.length === 0) {
-
+							delete result[symbol];
+							dispatch(removeTicker(state, symbol));
+							dispatch(removeTickerKey(state, symbol));
 						}
 					})
 					return result;
@@ -64,6 +81,13 @@ export function fetchData(state, tickerArray) {
 					to: toDate, 
 					period: period
 				}).then(result => {
+					_.each(result, (quotes, symbol) => {
+						if(quotes.length === 0) {
+							delete result[symbol];
+							dispatch(removeTicker(state, symbol));
+							dispatch(removeTickerKey(state, symbol));
+						}
+					})
 					dispatch(success());
 					return result;
 				})

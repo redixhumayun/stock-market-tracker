@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import Loading from 'react-loading';
 
 import StockListComponent from '../components/StockListComponent.js';
 import {addKeysAndData, removeTicker} from '../actions/actions.js';
@@ -11,11 +12,12 @@ class StockList extends Component {
 				<StockListComponent stocks={this.props.stocks}
 				onRemoveClick={(stock) => this.props.removeTicker(this.props.currentState, stock)}/>
 			)
-		}else{
-			return(
-				<div>Loading...</div>
-			)
 		}
+		return (
+			<div className='loading-icon-stocklist'>
+				<Loading type='balls' color='#e3e3e3' />
+			</div>
+		)
 	}
 
 	shouldComponentUpdate(nextProps, nextState) {

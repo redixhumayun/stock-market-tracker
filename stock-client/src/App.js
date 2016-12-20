@@ -10,8 +10,8 @@ class App extends Component {
     return (
       <div className="App container">
         <div className='row title'>
-          <div className='col-sm-12 well text-center'>
-            <h2>Stock Market Tracker</h2>
+          <div className='col-sm-12 text-center'>
+            <h2 className='title'>Stock Market Tracker</h2>
           </div>
         </div>
         <div className='row time-period-changer'>

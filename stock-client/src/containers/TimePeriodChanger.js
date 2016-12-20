@@ -7,7 +7,7 @@ import {changeDatePeriodAndFetchData} from '../actions/actions.js';
 class TimePeriodChanger extends Component {
 	render() {
 		return(
-			<div>
+			<div className='time-period-changer'>
 				<button type='button' className='btn btn-secondary daily'
 				onClick={() => {this.props.renderChart(this.props.currentState, 'd')}}>Daily</button>
 				<button type='button' className='btn btn-secondary three-months'
@@ -20,7 +20,6 @@ class TimePeriodChanger extends Component {
 		)
 	}
 }
-//route onClicks through a server reducer that will change date on state and then fetch data according to the new state
 
 const mapStateToProps = (state) => {
 	return {

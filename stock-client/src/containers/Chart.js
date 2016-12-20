@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import moment from 'moment';
+import Loading from 'react-loading';
 
 import ChartComponent from '../components/ChartComponent.js';
 
@@ -39,7 +40,7 @@ class Chart extends Component {
 	}
 
 	render() {
-		if(this.props.data){
+		if(this.props.isFetching === false && this.props.data){
 			const data = this.cleanUpData(this.props.data);
 			const tickers = Object.keys(this.props.data.toJS());
 			return (
@@ -49,7 +50,9 @@ class Chart extends Component {
 			)
 		}else{
 			return (
-				<div>Fetching data</div>
+				<div className='loading-icon-chart'>
+					<Loading type='spin' color='#e3e3e3' />
+				</div>
 			)
 		}
 	}
@@ -57,7 +60,8 @@ class Chart extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		data: state.get('data')
+		data: state.get('data'), 
+		isFetching: state.get('isFetching')
 	}
 }
 
